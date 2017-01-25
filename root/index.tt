@@ -1,0 +1,5 @@
+<h1>Links</h1>
+<ul>
+    <li><a href="[% c.uri_for('/companies') %]">Companies</a></li>
+    <li><a href="[% c.uri_for('/transactions') %]">Transactions</a></li>
+</ul>
