@@ -1,1 +1,13 @@
-Companies
+<h1>Companies ([% companies_found %])</h1>
+
+[% IF companies_found %]
+    [% FOREACH company IN companies %]
+        <p>
+            <a href="[% c.uri_for('/companies/' _ company.id) %]">
+                [% company.name | html %]
+            </a>
+        </p>
+    [% END %]
+[% ELSE %]
+    Nothing to see here
+[% END %]
