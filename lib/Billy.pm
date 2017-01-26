@@ -16,15 +16,19 @@ use Catalyst::Runtime 5.80;
 # Static::Simple: will serve static files from the application's root
 #                 directory
 
-use Catalyst qw/
+use Catalyst qw(
     -Debug
     ConfigLoader
     Static::Simple
-/;
+    Session
+    Session::Store::File
+    Session::State::Cookie
+    StatusMessage
+);
 
 extends 'Catalyst';
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 # Configure the application.
 #

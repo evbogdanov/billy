@@ -17,7 +17,12 @@ sub not_found : Path {
     $c->res->status(404);
 }
 
-sub end : ActionClass('RenderView') {}
+sub end : ActionClass('RenderView') {
+    my ($self, $c) = @_;
+
+    # Load status messages
+    $c->load_status_msgs();
+}
 
 __PACKAGE__->meta->make_immutable;
 

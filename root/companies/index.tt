@@ -3,15 +3,17 @@
 <h1>Companies ([% companies_found %])</h1>
 [% IF companies_found %]
     [% FOREACH company IN companies %]
-        <p>
-            <a href="[% c.uri_for('/companies/' _ company.id) %]">
+        <div>
+            <p><a href="[% c.uri_for('/companies/' _ company.id) %]">
                 [% company.name | html %]
-            </a>
-            |
+            </a></p>
+            <p>
             <a href="[% c.uri_for('/companies/form_update/') _ company.id %]">Update</a>
-            |
-            <a href="[% c.uri_for('/companies/delete/') _ company.id %]">Delete</a>
-        </p>
+            </p>
+            <form method="post" action="[% c.uri_for('/companies/delete/') _ company.id %]">
+            <input type="submit" value="Delete">
+            </form>
+        </div>
     [% END %]
 [% ELSE %]
     Nothing to see here

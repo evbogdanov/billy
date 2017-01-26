@@ -54,11 +54,11 @@ sub create_or_update : Local : Args(0) {
     my $account_my = $c->req->params->{account_my} || '';
     my $name       = $c->req->params->{name}       || '';
     my $notes      = $c->req->params->{notes}      || '';
-    my $company;
 
     return $c->res->body('What do you want -- create or update?')
         if $action ne 'create' and $action ne 'update';
 
+    my ($company, $msg);
     # Create a brand new company
     if ($action eq 'create') {
         $company= $c->model('DB::Company')->create({
@@ -68,6 +68,7 @@ sub create_or_update : Local : Args(0) {
             name       => $name,
             notes      => $notes
         });
+        $msg = 'Company created';
     } 
     # Update existing company
     elsif ($action eq 'update') {
@@ -77,9 +78,13 @@ sub create_or_update : Local : Args(0) {
             name       => $name,
             notes      => $notes
         });
+        $msg = 'Company updated';
     }
 
-    $c->res->redirect($c->uri_for('/companies/' . $company->id));
+    $c->res->redirect($c->uri_for(
+        '/companies/' . $company->id,
+        {mid => $c->set_status_msg($msg)}
+    ));
 }
 
 sub show : Path : Args(1) {
@@ -102,9 +107,12 @@ sub delete : Local : Args(1) {
     # Search for the company and then delete:
     # - company itself
     # - all company's transactions
-    $c->model('DB::Company')->search({id => $id})->delete_all;
+    $c->model('DB::Company')->search({id => $id})->delete_all();
 
-    $c->res->redirect($c->uri_for('/companies'));
+    $c->res->redirect($c->uri_for(
+        '/companies',
+        {mid => $c->set_status_msg('Company deleted')}
+    ));
 }
 
 __PACKAGE__->meta->make_immutable;
