@@ -59,12 +59,6 @@ sub create_or_update : Local : Args(0) {
     return $c->res->body('What do you want -- create or update?')
         if $action ne 'create' and $action ne 'update';
 
-
-    printf("%s\n", '=' x 90);
-    printf("action is: '%s'\n", $action);
-    printf("%s\n", '=' x 90);
-
-
     # Create a brand new company
     if ($action eq 'create') {
         $company= $c->model('DB::Company')->create({
