@@ -96,9 +96,13 @@ sub show : Path : Args(1) {
 sub delete : Local : Args(1) {
     my ($self, $c, $id) = @_;
 
-    if (my $company = $c->model('DB::Company')->find($id)) {
-        $company->delete();
-    }
+    return $c->res->body("You shouldn't use a GET method to delete stuff")
+        if $c->req->method ne 'POST';
+
+    # Search for the company and then delete:
+    # - company itself
+    # - all company's transactions
+    $c->model('DB::Company')->search({id => $id})->delete_all;
 
     $c->res->redirect($c->uri_for('/companies'));
 }

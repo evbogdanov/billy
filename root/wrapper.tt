@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>billy</title>
+	<link rel="shortcut icon" href="/favicon.ico">
+	<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+	<a href="[% c.uri_for('/companies') %]">Companies</a>
+	|
+	<a href="[% c.uri_for('/transactions') %]">Transactions</a>
+	<hr>
+	[%# Here TT injects template's content into the wrapper %]
+    [% content %]
+</body>
+</html>
