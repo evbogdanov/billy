@@ -1,11 +1,16 @@
+<a href="[% c.uri_for('/companies/form_create') %]">Create company</a>
+<hr>
 <h1>Companies ([% companies_found %])</h1>
-
 [% IF companies_found %]
     [% FOREACH company IN companies %]
         <p>
             <a href="[% c.uri_for('/companies/' _ company.id) %]">
                 [% company.name | html %]
             </a>
+            |
+            <a href="[% c.uri_for('/companies/form_update/') _ company.id %]">Update</a>
+            |
+            <a href="[% c.uri_for('/companies/delete/') _ company.id %]">Delete</a>
         </p>
     [% END %]
 [% ELSE %]

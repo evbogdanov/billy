@@ -1,0 +1,49 @@
+[% uri = c.uri_for('/companies/create_or_update') %]
+
+[% IF company %]
+    [% action = 'update' %]
+    [% name = company.name %]
+    [% id = company.id %]
+
+    [% account = company.account %]
+    [% account_my = company.account_my %]
+    [% notes = company.notes %]
+    [% button = 'Update' %]
+[% ELSE %]
+    [% action = 'create' %]
+    [% name = '' %]
+    [% id = '' %]
+
+    [% account = '' %]
+    [% account_my = '' %]
+    [% notes = '' %]
+    [% button = 'Create' %]
+[% END %]
+
+<a href="[% c.uri_for('/companies') %]">All companies</a>
+<hr>
+
+<form action="[% uri %]" method="post">
+    <input name="action" type="hidden" value="[% action %]">
+    <p>
+        <label>name</label>
+        <input name="name" type="text" maxlength="100" value="[% name | html %]">
+    </p>
+    <p>
+        <label>id</label>
+        <input name="id" type="text" maxlength="10" value="[% id %]">
+    </p>
+    <p>
+        <label>account</label>
+        <input name="account" type="text" maxlength="20" value="[% account | html %]">
+    </p>
+    <p>
+        <label>my account</label>
+        <input name="account_my" type="text" maxlength="20" value="[% account_my | html %]">
+    </p>
+    <p>
+        <label>notes</label>
+        <textarea name="notes">[% notes | html %]</textarea>
+    </p>
+    <p><input type="submit" value="[% button %]"></p>
+</form>
