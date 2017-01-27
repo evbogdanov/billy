@@ -1,0 +1,9 @@
+cpanm Catalyst::Devel
+cpanm Catalyst::Helper::View::TT
+cpanm Catalyst::Helper::Model::DBIC::Schema
+cpanm DBIx::Class::Schema::Loader
+cpanm MooseX::NonMoose
+cpanm Catalyst::Plugin::Session
+cpanm Catalyst::Plugin::Session::Store::File
+cpanm Catalyst::Plugin::Session::State::Cookie
+cpanm Catalyst::Plugin::StatusMessage

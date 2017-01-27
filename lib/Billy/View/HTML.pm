@@ -8,7 +8,7 @@ __PACKAGE__->config(
     TEMPLATE_EXTENSION => '.tt',
     render_die         => 1,
     WRAPPER            => 'wrapper.tt',
-    ENCODING           => 'UTF-8',
+    ENCODING           => 'UTF-8'
 );
 
 1;
