@@ -43,24 +43,28 @@ __PACKAGE__->table("company");
   data_type: 'char'
   is_nullable: 0
   size: 10
+  description_ru: 'ИНН'
 
 =head2 account
 
   data_type: 'char'
   is_nullable: 0
   size: 20
+  description_ru: 'Расчётный счёт'
 
 =head2 account_my
 
   data_type: 'varchar'
   is_nullable: 0
   size: 20
+  description_ru: 'Лицевой счёт'
 
 =head2 name
 
   data_type: 'varchar'
   is_nullable: 0
   size: 100
+  description_ru: 'Название'
 
 =head2 notes
 
@@ -68,6 +72,7 @@ __PACKAGE__->table("company");
   default_value: (empty string)
   is_nullable: 0
   size: 300
+  description_ru: 'Заметки'
 
 =cut
 
