@@ -4,7 +4,6 @@
     [% action = 'update' %]
     [% name = company.name %]
     [% id = company.id %]
-
     [% account = company.account %]
     [% account_my = company.account_my %]
     [% notes = company.notes %]
@@ -13,7 +12,6 @@
     [% action = 'create' %]
     [% name = '' %]
     [% id = '' %]
-
     [% account = '' %]
     [% account_my = '' %]
     [% notes = '' %]
@@ -26,10 +24,14 @@
         <label>name</label>
         <input name="name" type="text" maxlength="100" value="[% name | html %]">
     </p>
-    <p>
-        <label>id</label>
-        <input name="id" type="text" maxlength="10" value="[% id %]">
-    </p>
+    [% IF company %]
+        <input name="id" type="hidden" value="[% id %]"/>
+    [% ELSE %]
+        <p>
+            <label>id</label>
+            <input name="id" type="text" maxlength="10" value="[% id %]">
+        </p>
+    [% END %]
     <p>
         <label>account</label>
         <input name="account" type="text" maxlength="20" value="[% account | html %]">

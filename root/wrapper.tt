@@ -12,6 +12,7 @@
     <a href="[% c.uri_for('/transactions') %]">Transactions</a>
     <hr>
 
+    [%# Basically, status messages in Catalyst equal to flashes in Mojo %]
     [% IF status_msg %]
         <b>[% status_msg %]</b>
         <hr>
