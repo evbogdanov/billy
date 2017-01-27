@@ -1,10 +1,15 @@
 [% IF company %]
+    <p><a href="[% c.uri_for('/companies/form_update/') _ company.id %]">Update</a></p>
+    <form method="post" action="[% c.uri_for('/companies/delete/') _ company.id %]">
+        <input type="submit" value="Delete">
+    </form>
+    <hr>
     <h1>[% company.name | html %]</h1>
     <p>[% company.id | html %]</p>
     <p>[% company.account | html %]</p>
     <p>[% company.account_my | html %]</p>
     <hr>
-    <p>[% company.notes | html %]</p>
+    <p>[% company.notes | html %]</p>    
 [% ELSE %]
     Company not found
 [% END %]

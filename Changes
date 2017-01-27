@@ -1,6 +1,7 @@
 0.03  2017-01-27
     - Set up my wrapper template.
     - Plug in status messages (aka flashes).
+    - Company: basic validation.
 
 0.02  2017-01-26
     - Added models for companies and transactions.

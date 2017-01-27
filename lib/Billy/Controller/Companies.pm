@@ -56,16 +56,19 @@ sub create_or_update : Local : Args(0) {
         notes      => $c->req->params->{notes}      || ''
     };
 
-    # Create or update?
-    my ($company, $msg);
+    my ($error, $company, $msg);
     if ($action eq 'create') {
-        $company = $c->model('DB::Company')->create($company_data);
-        $msg     = 'Company created';
+        ($error, $company) = $c->model('DB::Company')
+                               ->validate_and_create($company_data);
+        $msg = 'Company created';
     }
     elsif ($action eq 'update') {
-        $company = $c->model('DB::Company')->find_and_update($company_data);
-        $msg     = 'Company updated';
+        ($error, $company) = $c->model('DB::Company')
+                               ->validate_and_update($company_data);
+        $msg = 'Company updated';
     }
+
+    return $c->res->body("ERROR: $error") if $error;
 
     $c->res->redirect($c->uri_for(
         '/companies/' . $company->id,

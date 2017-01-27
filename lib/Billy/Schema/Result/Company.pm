@@ -122,7 +122,23 @@ __PACKAGE__->has_many(
 # Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-01-26 00:26:52
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:tvsfVUT+XErp/SLdo92ocw
 
+## MODEL API
+## -----------------------------------------------------------------------------
 
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Validate company model. If everything looks good, then return perlish
+# false value. Otherwise return string with the first encountered error.
+sub has_error {
+    my $self = shift;
+
+    return 'Invalid id'
+        if $self->id !~ m/^[0-9]{10}$/;
+
+    return 'Invalid account'
+        if $self->account !~ m/^[0-9]{20}$/;
+
+    return undef;
+}
+
 __PACKAGE__->meta->make_immutable;
+
 1;
