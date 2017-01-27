@@ -9,13 +9,13 @@ sub index : Path : Args(0) {
 
     my @companies = $c->model('DB::Company')->search(
         {}, # I want all of them
-        {order_by => 'name'},
+        {order_by => 'name'}
     );
 
     $c->stash(
         template        => 'companies/index.tt',
         companies_found => scalar(@companies),
-        companies       => [@companies],
+        companies       => [@companies]
     );
 }
 
@@ -24,7 +24,7 @@ sub form_create : Local : Args(0) {
     
     $c->stash(
         template => 'companies/form.tt',
-        company  => undef,
+        company  => undef
     );
 }
 
@@ -34,7 +34,7 @@ sub form_update : Local : Args(1) {
     if (my $company = $c->model('DB::Company')->find($id)) {
         $c->stash(
             template => 'companies/form.tt',
-            company  => $company,
+            company  => $company
         );
     }
     else {
@@ -94,7 +94,7 @@ sub show : Path : Args(1) {
 
     $c->stash(
         template => 'companies/show.tt',
-        company  => $company,
+        company  => $company
     );
 }
 
