@@ -116,12 +116,12 @@ __PACKAGE__->belongs_to(
   "company",
   "Billy::Schema::Result::Company",
   { id => "company_id" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "RESTRICT" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-01-26 00:26:52
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:5xUbqofpGSWFjE6Znqixcg
+# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-01-28 00:45:45
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:q6fwjFvvd7tpOrffbZhaDQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
