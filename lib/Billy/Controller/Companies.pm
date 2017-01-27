@@ -7,10 +7,7 @@ BEGIN { extends 'Catalyst::Controller'; }
 sub index : Path : Args(0) {
     my ($self, $c) = @_;
 
-    my @companies = $c->model('DB::Company')->search(
-        {}, # I want all of them
-        {order_by => 'name'}
-    );
+    my @companies = $c->model('DB::Company')->get_and_sort();
 
     $c->stash(
         template        => 'companies/index.tt',
@@ -32,14 +29,13 @@ sub form_update : Local : Args(1) {
     my ($self, $c, $id) = @_;
 
     if (my $company = $c->model('DB::Company')->find($id)) {
-        $c->stash(
+        return $c->stash(
             template => 'companies/form.tt',
             company  => $company
         );
     }
-    else {
-        $c->res->body('No company to update');
-    }
+
+    $c->res->body('No company to update');
 }
 
 sub create_or_update : Local : Args(0) {
@@ -48,37 +44,27 @@ sub create_or_update : Local : Args(0) {
     return $c->res->body('Where is my POST?')
         if $c->req->method ne 'POST';
 
-    my $action     = $c->req->params->{action}     || '';
-    my $id         = $c->req->params->{id}         || '';
-    my $account    = $c->req->params->{account}    || '';
-    my $account_my = $c->req->params->{account_my} || '';
-    my $name       = $c->req->params->{name}       || '';
-    my $notes      = $c->req->params->{notes}      || '';
-
+    my $action = $c->req->params->{action};
     return $c->res->body('What do you want -- create or update?')
         if $action ne 'create' and $action ne 'update';
 
+    my $company_data = {
+        id         => $c->req->params->{id}         || '',
+        account    => $c->req->params->{account}    || '',
+        account_my => $c->req->params->{account_my} || '',
+        name       => $c->req->params->{name}       || '',
+        notes      => $c->req->params->{notes}      || ''
+    };
+
+    # Create or update?
     my ($company, $msg);
-    # Create a brand new company
     if ($action eq 'create') {
-        $company= $c->model('DB::Company')->create({
-            id         => $id,
-            account    => $account,
-            account_my => $account_my,
-            name       => $name,
-            notes      => $notes
-        });
-        $msg = 'Company created';
-    } 
-    # Update existing company
+        $company = $c->model('DB::Company')->create($company_data);
+        $msg     = 'Company created';
+    }
     elsif ($action eq 'update') {
-        $company = $c->model('DB::Company')->find($id)->update({
-            account    => $account,
-            account_my => $account_my,
-            name       => $name,
-            notes      => $notes
-        });
-        $msg = 'Company updated';
+        $company = $c->model('DB::Company')->find_and_update($company_data);
+        $msg     = 'Company updated';
     }
 
     $c->res->redirect($c->uri_for(
@@ -104,10 +90,7 @@ sub delete : Local : Args(1) {
     return $c->res->body("You shouldn't use a GET method to delete stuff")
         if $c->req->method ne 'POST';
 
-    # Search for the company and then delete:
-    # - company itself
-    # - all company's transactions
-    $c->model('DB::Company')->search({id => $id})->delete_all();
+    $c->model('DB::Company')->delete_with_transactions($id);
 
     $c->res->redirect($c->uri_for(
         '/companies',
