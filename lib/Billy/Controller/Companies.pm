@@ -36,17 +36,22 @@ sub form_update : Local : Args(1) {
     }
 
     $c->res->body('No company to update');
+    $c->res->status(404);
 }
 
 sub create_or_update : Local : Args(0) {
     my ($self, $c) = @_;
 
-    return $c->res->body('Where is my POST?')
-        if $c->req->method ne 'POST';
+    if ($c->req->method ne 'POST') {
+        $c->res->status(500);
+        return $c->res->body('Where is my POST?');
+    }
 
     my $action = $c->req->params->{action};
-    return $c->res->body('What do you want -- create or update?')
-        if $action ne 'create' and $action ne 'update';
+    if ($action ne 'create' and $action ne 'update') {
+        $c->res->status(500);
+        return $c->res->body('What do you want -- create or update?');
+    }
 
     my $company_data = {
         id         => $c->req->params->{id}         || '',
@@ -68,7 +73,10 @@ sub create_or_update : Local : Args(0) {
         $msg = 'Company updated';
     }
 
-    return $c->res->body("ERROR: $error") if $error;
+    if ($error) {
+        $c->res->status(500);
+        return $c->res->body("ERROR: $error");
+    }
 
     $c->res->redirect($c->uri_for(
         '/companies/' . $company->id,
@@ -85,6 +93,7 @@ sub show : Path : Args(1) {
         template => 'companies/show.tt',
         company  => $company
     );
+    $c->res->status(404) unless $company;
 }
 
 sub delete : Local : Args(1) {

@@ -11,3 +11,8 @@ $ script/billy_server.pl -r
 ```
 $ plackup billy.psgi
 ```
+
+## Testing
+```
+$ CATALYST_DEBUG=0 prove -wl t
+```
