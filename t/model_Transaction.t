@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use Test::More;
 
+BEGIN { use_ok 'Billy::Schema' }
 BEGIN { use_ok 'Billy::Model::DB' }
 
 done_testing();
