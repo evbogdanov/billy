@@ -86,6 +86,8 @@ like request('/companies/1111111111')->as_string, qr{gazmyas}, 'really updated';
 ## DELETE
 ## -----------------------------------------------------------------------------
 
+is request('/companies/delete/1111111111')->code, 500, 'to delete use post';
+
 ok request(POST '/companies/delete/1111111111', [])->is_redirect, 'delete ok';
 
 ok request('/companies/1111111111')->is_error, 'really deleted';

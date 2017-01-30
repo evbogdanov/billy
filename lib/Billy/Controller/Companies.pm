@@ -99,8 +99,10 @@ sub show : Path : Args(1) {
 sub delete : Local : Args(1) {
     my ($self, $c, $id) = @_;
 
-    return $c->res->body("You shouldn't use a GET method to delete stuff")
-        if $c->req->method ne 'POST';
+    if ($c->req->method ne 'POST') {
+        $c->res->status(500);
+        return $c->res->body("Use POST method to delete company");
+    }
 
     $c->model('DB::Company')->delete_with_transactions($id);
 
