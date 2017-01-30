@@ -1,0 +1,50 @@
+[% IF transaction %]
+    [% action = 'update' %]
+    [% id = transaction.id %]
+    [% date = transaction.date_str %]
+    [% date_paid = transaction.date_paid_str %]
+    [% amount = transaction.amount %]
+    [% button = 'Update' %]
+[% ELSE %]
+    [% action = 'create' %]
+    [% id = '' %]
+    [% date = '' %]
+    [% date_paid = '' %]
+    [% amount = 0 %]
+    [% button = 'Create' %]
+[% END %]
+
+<form action="[% c.uri_for('/transactions/create_or_update') %]" method="post">
+    <input name="action" type="hidden" value="[% action %]">
+    <input name="id" type="hidden" value="[% id %]">
+
+    <p>
+        <label>company</label>
+        <select name="company_id">
+            [% FOREACH com IN companies %]
+                <option value="[% com.id %]"[% IF transaction && transaction.company_id == com.id %] selected[% END %]>[% com.name %]</option>
+            [% END %]
+        </select>
+    </p>
+
+    <p>
+        <label>date</label>
+        <input name="date" type="text" value="[% date %]">
+        <i>format: YYYY-MM-DD</i>
+    </p>
+
+    <p>
+        <label>date paid</label>
+        <input name="date_paid" type="text" value="[% date_paid %]">
+        <i>format is the same as above</i>
+    </p>
+
+    
+    <p>
+        <label>amount</label>
+        <input name="amount" type="number" value="[% amount %]">
+        <i>in kopeks</i>
+    </p>
+    
+    <p><input type="submit" value="[% button %]"></p>
+</form>

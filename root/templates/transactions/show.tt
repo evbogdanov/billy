@@ -1,0 +1,19 @@
+<h2>company</h2>
+<p>
+    <a href="[% c.uri_for('/companies/' _ transaction.company.id) %]">
+        [% transaction.company.name | html %]
+    </a>
+</p>
+<p>id: [% transaction.company.id %]</p>
+<p>account: [% transaction.company.account %]</p>
+<p>my account: [% transaction.company.account_my | html %]</p>
+<p>notes: [% transaction.company.notes | html %]</p>  
+<h2>transaction</h2>
+<p>date: [% transaction.date_str %]</p>
+<p>date paid: [% transaction.date_paid_str %]</p>
+<p>amount: [% transaction.amount_str %]</p>
+<hr>
+<p><a href="[% c.uri_for('/transactions/form_update/') _ transaction.id %]">Update</a></p>
+<form method="post" action="[% c.uri_for('/transactions/delete/') _ transaction.id %]">
+    <input type="submit" value="Delete">
+</form>

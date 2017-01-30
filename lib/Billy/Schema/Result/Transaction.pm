@@ -123,7 +123,26 @@ __PACKAGE__->belongs_to(
 # Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-01-28 00:45:45
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:q6fwjFvvd7tpOrffbZhaDQ
 
+## MODEL API
+## -----------------------------------------------------------------------------
 
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# Format date and date_paid as YYYY-MM-DD
+
+sub date_str      { _format_date(shift->date) }
+sub date_paid_str { _format_date(shift->date_paid) }
+
+sub _format_date {
+    my $date = shift;
+
+    return sprintf("%d-%02d-%02d", $date->year, $date->month, $date->day);
+}
+
+# Kopeks to rubles
+sub amount_str {
+    my $kop = shift->amount;
+    return sprintf("%.2f", $kop / 100);
+}
+
 __PACKAGE__->meta->make_immutable;
+
 1;

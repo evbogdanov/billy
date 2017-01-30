@@ -7,3 +7,4 @@ cpanm Catalyst::Plugin::Session
 cpanm Catalyst::Plugin::Session::Store::File
 cpanm Catalyst::Plugin::Session::State::Cookie
 cpanm Catalyst::Plugin::StatusMessage
+cpanm DateTime::Format::MySQL

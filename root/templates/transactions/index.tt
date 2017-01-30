@@ -1,1 +1,24 @@
-Transactions
+<a href="[% c.uri_for('/transactions/form_create') %]">Create transaction</a>
+<hr>
+[% IF transactions.size %]
+    <h1>Transactions ([% transactions.size %])</h1>
+
+    [% FOREACH tx IN transactions %]
+        <hr>
+        <div>
+            <p>
+                <a href="[% c.uri_for('/transactions/') _ tx.id %]">
+                    <b>[% tx.company.name | html %] ([% tx.date_str %])</b>
+                </a>
+            </p>
+            <p>
+                <a href="[% c.uri_for('/transactions/form_update/') _ tx.id %]">Update</a>
+            </p>
+            <form method="post" action="[% c.uri_for('/transactions/delete/') _ tx.id %]">
+                <input type="submit" value="Delete">
+            </form>
+        </div>
+    [% END %]
+[% ELSE %]
+    No transactions
+[% END %]

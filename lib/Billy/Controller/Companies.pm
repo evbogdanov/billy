@@ -10,9 +10,8 @@ sub index : Path : Args(0) {
     my @companies = $c->model('DB::Company')->get_and_sort();
 
     $c->stash(
-        template        => 'companies/index.tt',
-        companies_found => scalar(@companies),
-        companies       => [@companies]
+        template  => 'companies/index.tt',
+        companies => [@companies]
     );
 }
 
@@ -101,7 +100,7 @@ sub delete : Local : Args(1) {
 
     if ($c->req->method ne 'POST') {
         $c->res->status(500);
-        return $c->res->body("Use POST method to delete company");
+        return $c->res->body('Use POST method to delete company');
     }
 
     $c->model('DB::Company')->delete_with_transactions($id);
