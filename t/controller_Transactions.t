@@ -8,8 +8,6 @@ use Billy::Controller::Transactions;
 
 ok request('/transactions')->is_success, 'transactions ok';
 
-TODO: {
-    local $TODO = 'implement more transaction tests';
-}
+
 
 done_testing();

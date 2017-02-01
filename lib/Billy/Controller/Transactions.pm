@@ -48,7 +48,7 @@ sub create_or_update : Local : Args(0) {
 
     if ($c->req->method ne 'POST') {
         $c->res->status(500);
-        return $c->res->body('Create via POST');
+        return $c->res->body('Use POST method to create transaction');
     }
 
     my $action = $c->req->params->{action};

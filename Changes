@@ -1,5 +1,6 @@
-0.06  2017-01-31
+0.06  2017-02-01
     - Transaction: dirty CRUD.
+    - Transaction: tests.
 
 0.05  2017-01-30
     - Company: model tests.
