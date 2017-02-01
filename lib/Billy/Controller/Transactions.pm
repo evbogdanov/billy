@@ -30,8 +30,8 @@ sub form_create : Local : Args(0) {
 sub form_update : Local : Args(1) {
     my ($self, $c, $id) = @_;
 
-    my @companies = $c->model('DB::Company')->get_and_sort();
     if (my $tx = $c->model('DB::Transaction')->find($id)) {
+        my @companies = $c->model('DB::Company')->get_and_sort();
         return $c->stash(
             template    => 'transactions/form.tt',
             transaction => $tx,
