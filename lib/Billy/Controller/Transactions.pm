@@ -95,16 +95,12 @@ sub create_or_update : Local : Args(0) {
         $tx_data->{id} = $id;
     }
 
-    if (my $tx = $c->model('DB::Transaction')->update_or_create($tx_data)) {
-        my $msg = "Transaction ${action}d";
-        return $c->res->redirect($c->uri_for(
-            '/transactions/' . $tx->id,
-            {mid => $c->set_status_msg($msg)}
-        ));
-    }
-
-    $c->res->status(500);
-    $c->res->body('Unexpected error');
+    my $tx  = $c->model('DB::Transaction')->update_or_create($tx_data);
+    my $msg = "Transaction ${action}d";
+    $c->res->redirect($c->uri_for(
+        '/transactions/' . $tx->id,
+        {mid => $c->set_status_msg($msg)}
+    ));
 }
 
 sub show : Path : Args(1) {

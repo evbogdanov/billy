@@ -18,7 +18,7 @@ my $connect_info = Billy::Model::DB->config->{connect_info};
 my $schema       = Billy::Schema->connect($connect_info);
 
 # I cannot test transaction without created company
-$schema->resultset('Company')->validate_and_create({
+$schema->resultset('Company')->create({
     id         => $company_id,
     account    => '11111111111111111111',
     account_my => '123',
